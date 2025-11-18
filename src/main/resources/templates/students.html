@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Students Management System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<!-- NAVBAR -->
+<nav class="bg-gray-900 text-white px-8 py-4 flex items-center justify-between shadow-lg">
+    <a class="text-2xl font-bold tracking-wide" href="#">Student Management System</a>
+
+    <button onclick="document.getElementById('menu').classList.toggle('hidden')"
+            class="md:hidden text-gray-300 text-3xl">
+        ☰
+    </button>
+
+    <div id="menu" class="hidden md:flex md:space-x-6 text-lg">
+        <a class="hover:text-blue-400 transition" th:href="@{students}">Students</a>
+        <a class="hover:text-blue-400 transition" th:href="@{students/new}">Add Student</a>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="max-w-6xl mx-auto w-full mt-10 px-4">
+    <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-800">Student List</h1>
+        <a th:href="@{students/new}"
+           class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">+ Add Student</a>
+    </div>
+</div>
+
+<!-- STUDENT TABLE CARD -->
+<div class="max-w-6xl mx-auto w-full mt-6 px-4 ">
+    <div class="bg-white shadow-xl rounded-xl overflow-hidden ">
+        <table class="w-full text-left border-collapse">
+            <thead>
+            <tr class="bg-gray-200 text-gray-700">
+                <th class="p-4 w-1/3">First Name</th>
+                <th class="p-4 w-1/3">Last Name</th>
+                <th class="p-4 w-1/3">Email</th>
+                <th class="p-4 w-1/3">Update</th>
+                <th class="p-4 w-1/3">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="student : ${students}" class="hover:bg-gray-50 transition border-b last:border-none">
+                <td class="p-4" th:text="${student.firstName}"></td>
+                <td class="p-4" th:text="${student.lastName}"></td>
+                <td class="p-4" th:text="${student.email}"></td>
+                <td>
+                <a th:href="@{students/edit/{id}(id=${student.id})}">Update</a>
+                </td>
+                <td>
+                <a th:href="@{students/{id}(id=${student.id})   }">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
